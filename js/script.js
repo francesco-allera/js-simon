@@ -13,9 +13,10 @@ function arrayOfUniqueRandomNumbers(array, arrayLength, minNumberRange, maxNumbe
 
 // VARIABILI
 var numeriDelGioco = 5;
-var secondiDaAspettare = 30;
+var secondiDaAspettare = 5;
 var arrayDiNumeriDaRicordare = [];
 var numeriUtente = [];
+var numeriRicordati = [];
 
 // EFFETTIVO LANCIO DEL GIOCO
 arrayOfUniqueRandomNumbers(arrayDiNumeriDaRicordare, numeriDelGioco, 1, 100);
@@ -24,9 +25,15 @@ alert('I numeri che devi ricordare sono ' + arrayDiNumeriDaRicordare + '\nHai 30
 
 setTimeout(function() {
   for (var i = 0; i < numeriDelGioco; i++) {
-    numeriUtente.push(parseInt(prompt('Scrivi un numero che ti ricordi')));
+    var numeroInserito = (parseInt(prompt('Scrivi un numero che ti ricordi')));
+    numeriUtente.push(numeroInserito);
+    if (arrayDiNumeriDaRicordare.includes(numeroInserito)) {
+      numeriRicordati.push(numeroInserito);
+    }
   }
   console.log(numeriUtente);
+  console.log(numeriRicordati);
+  alert('Hai ricordato ' + numeriRicordati.length + ' numeri\nCioè: ' + numeriRicordati)
 }, secondiDaAspettare * 1000);
 
 console.log(arrayDiNumeriDaRicordare);
