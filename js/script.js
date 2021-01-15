@@ -33,7 +33,7 @@ setTimeout(function() {
   }
   console.log(numeriUtente);
   console.log(numeriRicordati);
-  alert('Hai ricordato ' + numeriRicordati.length + ' numeri\nCioè: ' + numeriRicordati)
+  alert('Hai ricordato ' + numeriRicordati.length + ' numeri\nCioè: ' + numeriRicordati + '\nATTENZIONE: MOLTE DELLE CONDIZIONI DELLE ESERCIZIO SONO VOLUTAMENTE CAMBIATE PER RIDURRE ATTESE O SEMPLIFICARE IL TUTTO')
 }, secondiDaAspettare * 1000);
 
 console.log(arrayDiNumeriDaRicordare);
