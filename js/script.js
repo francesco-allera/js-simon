@@ -10,30 +10,60 @@ function arrayOfUniqueRandomNumbers(array, arrayLength, minNumberRange, maxNumbe
     return a - b;
   })
 }
+// FUNZIONE PER LA VALIDAZIONE DEL NUMERO INSERITO DALL'UTENTE
+function validatorRealNumber(number, minRange, maxRange) {
+  if (isNaN(number)) {
+    return false;
+  }
+  if (number < minRange) {
+    return false;
+  }
+  if (number > maxRange) {
+    return false;
+  }
+  return true;
+}
 
 // VARIABILI
 var numeriDelGioco = 5;
 var secondiDaAspettare = 5;
+var numeriMinimi = 1;
+var numeriMassimi = 100;
 var arrayDiNumeriDaRicordare = [];
 var numeriUtente = [];
 var numeriRicordati = [];
 
 // EFFETTIVO LANCIO DEL GIOCO
-arrayOfUniqueRandomNumbers(arrayDiNumeriDaRicordare, numeriDelGioco, 1, 100);
+arrayOfUniqueRandomNumbers(arrayDiNumeriDaRicordare, numeriDelGioco, numeriMinimi, numeriMassimi);
 
-alert('I numeri che devi ricordare sono ' + arrayDiNumeriDaRicordare + '\nHai 30 secondi per ricordarli!');
+alert('I numeri che devi ricordare sono ' + arrayDiNumeriDaRicordare + '\nHai ' + secondiDaAspettare + ' secondi per vedere se riesci a ricordarli!');
+
+var countdown = setInterval(function() {
+  secondiDaAspettare--;
+  document.getElementById('counter').innerText = 'Mancano ' + secondiDaAspettare + ' secondi';
+  if (secondiDaAspettare === 0) {
+    clearInterval(countdown);
+  }
+}, 1000);
+
 
 setTimeout(function() {
-  for (var i = 0; i < numeriDelGioco; i++) {
-    var numeroInserito = (parseInt(prompt('Scrivi un numero che ti ricordi')));
-    numeriUtente.push(numeroInserito);
-    if (arrayDiNumeriDaRicordare.includes(numeroInserito)) {
-      numeriRicordati.push(numeroInserito);
+  while (numeriUtente.length < numeriDelGioco) {
+    var numeroInserito = parseInt(prompt('Scrivi il ' + (numeriUtente.length + 1) + ' numero che ti ricordi'));
+    if (numeriUtente.includes(numeroInserito)) {
+      alert('Hai già inserito questo numero');
+    } else if (!validatorRealNumber(numeroInserito, numeriMinimi, numeriMassimi)){
+      alert('Inserisci solo numeri compresi tra ' + numeriMinimi + ' e ' + numeriMassimi);
+    } else {
+      numeriUtente.push(numeroInserito);
+      if (arrayDiNumeriDaRicordare.includes(numeroInserito)) {
+        numeriRicordati.push(numeroInserito);
+      }
     }
   }
   console.log(numeriUtente);
   console.log(numeriRicordati);
-  alert('Hai ricordato ' + numeriRicordati.length + ' numeri\nCioè: ' + numeriRicordati + '\nATTENZIONE: MOLTE DELLE CONDIZIONI DELLE ESERCIZIO SONO VOLUTAMENTE CAMBIATE PER RIDURRE ATTESE O SEMPLIFICARE IL TUTTO')
+  alert('Hai ricordato ' + numeriRicordati.length + ' numeri\nCioè: ' + numeriRicordati);
 }, secondiDaAspettare * 1000);
 
 console.log(arrayDiNumeriDaRicordare);
